@@ -28,7 +28,7 @@ byte digit[] = {
   0x00, //clear
 };
 
-byte digitdot[] = {
+byte digitdot[] = {  // The last digit represents the dot
   B11111101, // 0
   B01100001, // 1
   B11011011, // 2
@@ -43,6 +43,7 @@ byte digitdot[] = {
 };
 
 void setup() {
+  
   // Timer
   cli(); // disable interrupts
 
@@ -62,6 +63,8 @@ void setup() {
   sei(); // allow interrupts
 
   // end Timer
+  
+  
   pinMode(datapin, OUTPUT);
   pinMode(latchpin, OUTPUT);
   pinMode(clockpin, OUTPUT);
@@ -89,18 +92,13 @@ void loop() {
 
   pickDigit(1);
   digitnumber((y%10000)/1000);
-
-
-  
-
-
-
 }
+
 
 ISR(TIMER1_COMPA_vect) { // function which will be called when an interrupt occurs at timer 1
   y++;
 
-   // send current value of i to the pc
+   // count +1 everytime this interrupt is called
 }
 
 
