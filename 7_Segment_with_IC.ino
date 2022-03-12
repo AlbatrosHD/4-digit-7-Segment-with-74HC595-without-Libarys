@@ -78,20 +78,24 @@ void setup() {
 }
 
 void loop() {
-
+  digitnumber(10);     //This clears the digit (more precies numbers)
+  pickDigit(3);        // Picks whitch digit is used 
+  digitnumber(y % 10); //only the first digit of y is given out
   
-
-  pickDigit(0);
-  digitnumber(y%10);
-
-  pickDigit(3);
-  digitnumber((y%100)/10);
-
+  digitnumber(10);
   pickDigit(2);
-  digitnumber((y%1000)/100);
-
+  digitnumber((y % 100) / 10);
+  
+  digitnumber(10);
   pickDigit(1);
-  digitnumber((y%10000)/1000);
+  digitnumber((y % 1000) / 100);
+  
+  digitnumber(10);
+  pickDigit(0);
+  digitnumber((y % 10000) / 1000);
+
+
+
 }
 
 
