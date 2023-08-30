@@ -1,19 +1,21 @@
-
+// for the 74HC595
 #define clockpin 4
 #define latchpin 3
 #define datapin 2
 
+// to control each Digits  
 #define D1 5
 #define D2 6
 #define D3 7
 #define D4 12
-
+// needed for calculations
 int y = 0;
 int i = 0;
 int number = 10;
 long n = 0;
 int count = 0;
 
+//What kind of Numbers or Letters it should represent in each Digit.
 byte digit[] = {
   0xFC, // 0
   0x60, // 1
@@ -44,7 +46,8 @@ byte digitdot[] = {  // The last digit represents the dot
 
 void setup() {
   
-  // Timer
+  // Timer 
+  // explanation: https://deepbluembedded.com/arduino-timerone-library/
   cli(); // disable interrupts
 
   // reset
@@ -73,7 +76,7 @@ void setup() {
   pinMode(D2, OUTPUT);
   pinMode(D3, OUTPUT);
   pinMode(D4, OUTPUT);
-  Serial.begin(9600);
+  //Serial.begin(9600); // debugging in the Seriell Monitor
 
 }
 
@@ -84,15 +87,15 @@ void loop() {
   
   digitnumber(10);
   pickDigit(2);
-  digitnumber((y % 100) / 10);
+  digitnumber((y % 100) / 10); //only the second digit is given out
   
   digitnumber(10);
   pickDigit(1);
-  digitnumber((y % 1000) / 100);
+  digitnumber((y % 1000) / 100); //only the third digit is given out
   
   digitnumber(10);
   pickDigit(0);
-  digitnumber((y % 10000) / 1000);
+  digitnumber((y % 10000) / 1000); //only the fourth digit is given out
 
 
 
@@ -133,12 +136,12 @@ void pickDigit(int x) //light up a 7-segment display
   }
 }
 
-void digitnumber(int i) {
+void digitnumber(int i) { // can be written as a function
   switch (i) {
     case 0:
-      digitalWrite(latchpin, LOW);
-      shiftOut(datapin, clockpin, LSBFIRST, digit[0]);
-      digitalWrite(latchpin, HIGH);
+      digitalWrite(latchpin, LOW);                     // makes sure the shiftregistry doesn't gives out anything
+      shiftOut(datapin, clockpin, LSBFIRST, digit[0]); // gives out the byte to the shiftregistery
+      digitalWrite(latchpin, HIGH);                    // gives out what is stored in the registry
       break;
 
     case 1:
